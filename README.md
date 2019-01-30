@@ -47,7 +47,7 @@ You'll need it to train and test results. Download and follow these instructions
 
 ### Training
 
-Inside of the darknet folder: 
+Inside the darknet folder: 
 
 `mkdir backup` <- really important
 
@@ -55,7 +55,7 @@ Inside of the darknet folder:
 
 ### Testing
 
-First change the **yolov2.cfg** file inside yolo for testing configuration: `batch=1`, `subdivisions=1`. 
+First change **yolov2.cfg** inside yolo for testing configuration: `batch=1`, `subdivisions=1`. 
 
 Finally: 
 
