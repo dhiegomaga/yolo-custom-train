@@ -3,8 +3,16 @@ import numpy as np
 import cv2
 import glob
 import random
+import sys
+import os
 
+# DEFINE FOLDER WITH ALL IMAGES
 folder = "files/"
+
+# DEFINE CLASS NAMES (or type in prompt)
+# ex: classes = ["house", "car", "goat"]
+classes = ["door", "bench", "trash", "fire", "water"]
+
 img_paths = glob.glob(folder+"*.jpg")
 txt_paths = glob.glob(folder+"*.txt")
 
@@ -21,7 +29,6 @@ current_mouse = [0,0]
 rectangles = []
 rect_class = []
 
-classes = []
 colors = []
 
 selected_class = 0
@@ -55,15 +62,17 @@ def print_menu(c):
         print "["+str(i)+"]"+" "+classes[i]
 
     print "Selected class: "+"["+str(c)+"]"+" "+classes[c]
+    print " "
 
 
 # Get file names
 for txt in txt_paths:
-    txts.add(txt.split("/")[-1].split(".")[0])
+    print txt
+    txts.add(os.path.splitext(os.path.basename(txt))[0])
 
 # Input classes
-print "Type class names [blank to finish]" 
 if len(classes) == 0:
+    print "Type class names [blank to finish]" 
     while True:
         class_name = raw_input()
         if class_name == "" and len(classes) > 0:
@@ -86,12 +95,17 @@ cv2.setMouseCallback("image", mouse_click)
 # Get first available image 
 next_image = 0
 while next_image < len(img_paths):
-    name = img_paths[next_image].split("/")[-1].split(".")[0]
+    name = os.path.splitext(os.path.basename(img_paths[next_image]))[0]
     if(name not in txts):
         break
     next_image+=1
 
+if(next_image >= len(img_paths)):
+    print "All images already processed! (Delete the .txt files to reprocess them)"
+    sys.exit()
+
 img = cv2.imread(img_paths[next_image])
+print img_paths[next_image]+"\n"
 
 img_width = img.shape[1]
 img_height = img.shape[0]
@@ -109,10 +123,19 @@ while True:
         rect_class.append(selected_class)
         saved_clicks = []
 
-    # Draw current rectangle
+    # Draw current rectangle and class name
     if len(saved_clicks) == 1:
         pos = saved_clicks[0]
         cv2.rectangle(img_buff,(pos[0],pos[1]),(current_mouse[0],current_mouse[1]),colors[selected_class],2)
+
+        bottomLeftCornerOfText = (pos[0],pos[1])
+
+        cv2.putText(img_buff,classes[selected_class], 
+        bottomLeftCornerOfText, 
+        font, 
+        fontScale,
+        fontColor,
+        lineType)
 
     # Draw rectangles
     for i in range(len(rectangles)):
@@ -153,7 +176,7 @@ while True:
             img_width = img.shape[1]
             img_height = img.shape[0]
             
-            filename = folder+img_paths[next_image].split("/")[-1].split(".")[0]+".txt"
+            filename = folder+os.path.splitext(os.path.basename(img_paths[next_image]))[0]+".txt"
             f = open(filename, "w")
 
             for index in range(len(rectangles)):
@@ -165,12 +188,13 @@ while True:
                 x2 = r[2]
                 y2 = r[3]
 
-                x = min(x1, x2)/img_width
+                x = (x1+x2)/(img_width*2)
                 width = abs(x1 - x2)/img_width
-                y = min(y1, y2)/img_width
-                height = abs(y1 - y2)/img_width
+                y = (y1+y2)/(img_height*2)
+                height = abs(y1 - y2)/img_height
 
                 line = str(rclass)+" "+str(x)+" "+str(y)+" "+str(width)+" "+str(height)+"\n"
+                print line
                 f.write(line)
 
             f.close()
@@ -183,13 +207,17 @@ while True:
         # Next available image
         next_image+=1
         while next_image < len(img_paths):
-            name = img_paths[next_image].split("/")[-1].split(".")[0]
-            print name
+            name = os.path.splitext(os.path.basename(img_paths[next_image]))[0]
             if(name not in txts):
                 break
             next_image+=1
 
+        if(next_image >= len(img_paths)):
+            print "Completed!"
+            break
+
         img = cv2.imread(img_paths[next_image])
+        print img_paths[next_image]+"\n"
 
     if key >= ord("0") and key <= ord("9") and key-48 < len(classes):
         selected_class = key-48
