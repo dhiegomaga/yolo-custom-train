@@ -1,4 +1,4 @@
-# yolo-custom-train
+# Yolo Custom Images
 Easy-to-use tool for labeling and training yolo object detector with custom images. 
 
 *Note¹*: This repository is based on [Yolo Object Detector](https://pjreddie.com/darknet/yolov2/). More info on training for custom images/classes can be found [here](https://github.com/AlexeyAB/darknet#how-to-train-to-detect-your-custom-objects). 
