@@ -55,7 +55,7 @@ Inside the darknet folder:
 
 ### Testing
 
-First change **yolov2.cfg** inside yolo for testing configuration: `batch=1`, `subdivisions=1`. 
+First change **yolov2.cfg** inside *cfg2/* for testing configuration: `batch=1`, `subdivisions=1`. 
 
 Finally: 
 
