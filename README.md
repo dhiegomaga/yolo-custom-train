@@ -15,7 +15,7 @@ I also only tested in Linux, but should work on Windows
 
 ### Installing Yolo
 
-You'll need it to train and test results. Donwload and follow these instructions [here](https://github.com/AlexeyAB/darknet).
+You'll need it to train and test results. Download and follow these instructions [here](https://github.com/AlexeyAB/darknet).
 
 ### Labeling 
 
