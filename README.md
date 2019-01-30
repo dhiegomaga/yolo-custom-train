@@ -59,7 +59,7 @@ First change the **yolov2.cfg** file inside yolo for testing configuration: `bat
 
 Finally: 
 
-./darknet detector test cfg2/obj.data cfg2/yolov2.cfg backup/yolov2.weights <your-image-path>
+`./darknet detector test cfg2/obj.data cfg2/yolov2.cfg backup/yolov2.weights <your-image-path>`
 
-Disclaimer: There is an 'official' tool for labeling classes, but I find it very slow to use, and it doesn't handle configuration files. You can find it [here](https://github.com/AlexeyAB/Yolo_mark). 
+**Disclaimer**: There is an 'official' tool for labeling classes, but I find it very slow to use, and it doesn't handle configuration files. You can find it [here](https://github.com/AlexeyAB/Yolo_mark). 
 
