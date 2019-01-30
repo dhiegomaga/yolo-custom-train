@@ -3,3 +3,4 @@ test.txt
 train.txt
 cfg2/obj.data
 cfg2/obj.names
+!files/.gitkeep
