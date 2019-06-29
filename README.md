@@ -41,7 +41,7 @@ You'll need it to train and test results. Download and follow these instructions
 
 5. Move files to the *darknet/* folder: 
 
-    `cp train.txt darknet/ &&c p test.txt darknet/ && cp -r cfg2/ darknet/ && cp -r files/ darknet/`
+    `cp train.txt darknet/ && cp test.txt darknet/ && cp -r cfg2/ darknet/ && cp -r files/ darknet/`
     
 6. Download convolutional weights for training `cd darknet/; wget https://pjreddie.com/media/files/darknet19_448.conv.23`.
 
